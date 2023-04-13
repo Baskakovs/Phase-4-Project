@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, createContext} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import BookListPage from './Components/BookListPage';
 import Nav from './Components/Nav';
@@ -6,8 +6,11 @@ import MyBooksList from './Components/MyBooks';
 import MyReviews from './Components/MyReviews';
 import NewBook from './Components/NewBook';
 import './App.css';
+export const AppContext = createContext()
 
 const App = () => {
+  const AppContext = createContext()
+
   const [data, setData] = useState("null")
   useEffect(() => {
     fetch('/books', 
@@ -24,13 +27,17 @@ const App = () => {
   }, [])
   console.log(data)
 
+  const hi = 'hi'
+
   return (
     <>
     <Router>
     <Nav />
       <Switch>
         <Route exact path="/">
-          <BookListPage />
+          <AppContext.Provider value={{data, hi}}>
+            <BookListPage />
+          </AppContext.Provider>
         </Route>
         <Route path="/my_books">
           <MyBooksList />
