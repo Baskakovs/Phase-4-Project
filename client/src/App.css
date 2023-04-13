@@ -389,21 +389,18 @@ img{
   display: none;
 }
 
-.payment-title{
+.book-title{
 border: none;
 font-size: 26px;
 font-weight: bold;
 margin-bottom: 12px;
 width: 100%;
-
 }
-
-.payment-title:focus{
+  
+.book-title:focus{
   outline: none
 }
 
-
- 
 .nav-link{
   color: #000;
   text-decoration: none;

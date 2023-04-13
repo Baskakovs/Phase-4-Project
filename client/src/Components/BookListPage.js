@@ -2,7 +2,7 @@ import BookCard from "./BookCard"
 function BookListPage(){
 return (
     <>
-    <div class="container-tabs">
+    <div className="container-tabs">
         <BookCard />
     </div>
 
