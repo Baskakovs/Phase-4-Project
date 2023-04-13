@@ -9,7 +9,6 @@ import './App.css';
 export const AppContext = createContext()
 
 const App = () => {
-  const AppContext = createContext()
 
   const [data, setData] = useState("null")
   useEffect(() => {
