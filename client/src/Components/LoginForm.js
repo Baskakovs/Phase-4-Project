@@ -1,6 +1,7 @@
 //Importing dependencies
 import React, {useState, useContext} from 'react';
 import { LoginContext } from '../App';
+import { useHistory } from 'react-router-dom';
 function LoginForm({setErrors}){
 
     const {setCurrentUser} = useContext(LoginContext)
@@ -24,6 +25,9 @@ function LoginForm({setErrors}){
 
     //SUBMITTING THE FORM TO THE BACKEND
     //==================================
+    const { handleLogin } = useContext(LoginContext)
+    const history = useHistory()
+
     function handleSubmit(e){
         e.preventDefault()
         fetch('/login',{
@@ -33,7 +37,10 @@ function LoginForm({setErrors}){
         })
         .then(res => {
             if(res.ok){
-                res.json().then(user => setCurrentUser(user))
+                res.json().then(user => {
+                    handleLogin(user)
+                    history.push("/")
+                })
             }else{
                 res.json().then(e => setErrors([e.error]))
             }

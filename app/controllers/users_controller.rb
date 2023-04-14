@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
+    skip_before_action :authorized, only: [:create]
     def create
       user = User.create!(user_params)
+      session[:user_id] = user.id
       render json: user, status: :created
     rescue ActiveRecord::RecordInvalid => invalid
         render_unprocessable_entity_response(invalid)

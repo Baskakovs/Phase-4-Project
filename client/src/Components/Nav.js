@@ -2,8 +2,21 @@ import {NavLink} from 'react-router-dom'
 import { useContext } from 'react'
 import { AppContext } from '../App'
 function Nav({handleLogout}){
-    const {currentUser, handleSetCurrentUser} = useContext(AppContext)
+    const {currentUser, logoutCurrentUser} = useContext(AppContext)
 
+    function handleLogout(e){
+        e.preventDefault()
+        fetch('/logout', {
+            method: "DELETE"
+        })
+        .then(res => {
+            if(res.status == 204){
+                logoutCurrentUser()
+            }else{
+                alert("Something went wrong")
+            }
+        })
+    }
     return (
         <>
         {!currentUser ? 

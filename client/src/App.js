@@ -1,5 +1,5 @@
 import React, {useState, useEffect, createContext} from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
 import BookListPage from './Components/BookListPage';
 import Nav from './Components/Nav';
 import MyBooksList from './Components/MyBooks';
@@ -11,7 +11,7 @@ export const AppContext = createContext()
 export const LoginContext = createContext()
 
 const App = () => {
-
+  
   //FETCHING DATA FROM BACK-END
   //===========================
   const [data, setData] = useState("null")
@@ -33,20 +33,27 @@ const App = () => {
   //==============
 
   const [currentUser, setCurrentUer] = useState(null)
-  function handleSetCurrentUser(user){
+
+  function handleLogin(user){
     setCurrentUer(user)
   }
 
-  useEffect(() => {
-    console.log("1")
-    console.log(currentUser)
-  }, [currentUser])
+  //MANAGIN LOGOUT
+  //==============
+  function logoutCurrentUser(){
+    setCurrentUer(null)
+  }
+
+
+  const history = useHistory()
 
 
   return (
     <>
     <Router>
-    <AppContext.Provider value={{data, currentUser, handleSetCurrentUser}}>
+    <AppContext.Provider 
+    value={{data, currentUser, handleLogin, logoutCurrentUser}}
+    >
     <Nav />
       <Switch>
         <Route exact path="/">
@@ -63,7 +70,7 @@ const App = () => {
         </Route>
         <Route exact path="/login">
           <LoginContext.Provider 
-          value={{handleSetCurrentUser}}>
+          value={{handleLogin}}>
             <Login/>
           </LoginContext.Provider>
         </Route>
