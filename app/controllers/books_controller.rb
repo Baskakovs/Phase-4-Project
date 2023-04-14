@@ -2,8 +2,9 @@ class BooksController < ApplicationController
 
     def index
         books = Book.all
-        render json: books, status: :ok
+        render json: books, each_serializer: BookSerializer, include:["reviews", "reviews.user"], status: :ok
     end
+
 
     # def show
     #     book = Book.find(params[:id])
@@ -26,5 +27,4 @@ class BooksController < ApplicationController
     def render_unprocessable_entity_response(invalid)
         render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
     end
-
 end

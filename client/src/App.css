@@ -184,6 +184,16 @@ select{
   height: 23px
 }
 
+.btn-underline{
+  border: none;
+  background-color: #fff;
+  color: #000;
+  text-decoration: underline;
+  cursor: pointer;
+  height: 23px;
+  float: right
+}
+
 img{
   height: 335px;
   width: 209px;
@@ -237,6 +247,10 @@ img{
 
 .justify-content-start{
   justify-content: start;
+}
+
+.justify-content-center{
+  justify-content: center;
 }
 
 .text-align-start{
@@ -484,12 +498,52 @@ li button {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
+.card-review {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  background-color: #fff;
+  transition: 0.3s;
+  margin-top: 20px;
+  height: 200px;
+  width: 100%;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card-review:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
 /* Add some padding inside the card container */
 .container-book {
   padding: 2px 16px;
 }
+.container-review {
+  padding: 2px 16px;
+}
 
+.container-reviews {
+  min-height: 100vh;
+  height: 100%;
+  margin: auto;
+  justify-content: center;
+}
 
+/* Use CSS media queries */
+.container-reviews {
+  width: 100%; /* Set default width to 100% */
+}
+
+@media (min-width: 768px) {
+  .container-reviews {
+    width: 50%; /* Change this value to adjust the width for screens with a minimum width of 768px */
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-reviews {
+    width: 30%; /* Change this value to adjust the width for screens with a minimum width of 1024px */
+  }
+}
 
 
 
