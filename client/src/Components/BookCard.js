@@ -1,9 +1,13 @@
-function BookCard(){
+function BookCard({book}){
     return(
         <>
-        <span className="grid-row">
-            <h3 className="tab-card">{"Hello"}</h3>
-        </span>
+        <div class="card-book">
+            <div class="container-book">
+                <h4><b>{book.title}</b></h4>
+                <p>{book.description}</p>
+                <p>{book.author}</p>
+            </div>
+        </div>
         </>
     )
 }

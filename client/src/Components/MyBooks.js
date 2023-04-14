@@ -4,7 +4,7 @@ function MyBooksList(){
 return (
     <>
     <div className="container-tabs">
-        <BookCard />
+        {/* <BookCard /> */}
         <NavLink to={`/new_book`}>
             <div className="text-center">
                 <button className="btn-purple m-a mt-7 m-a w-90">

@@ -374,14 +374,16 @@ img{
   border-radius: 6px;
 }
 
-.tab-info-card{
+.book-info-card{
   background-color: #FFFFFF;
   padding: 30px;
-  border: 1px solid rgba(156, 156, 156, 0.7);
+  /* border: 1px solid rgba(156, 156, 156, 0.7); */
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  height: 100px;
-  width: auto;
-  margin: 4%;
+  height: 150px;
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
 }
 
 
@@ -400,6 +402,7 @@ width: 100%;
 .book-title:focus{
   outline: none
 }
+
 
 .nav-link{
   color: #000;
@@ -466,8 +469,25 @@ li button {
   background-color: #111;
 }
 
+.card-book {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  background-color: #fff;
+  transition: 0.3s;
+  margin-top: 20px;
+  height: 200px;
+  width: 300px;
+}
 
+/* On mouse-over, add a deeper shadow */
+.card-book:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
 
+/* Add some padding inside the card container */
+.container-book {
+  padding: 2px 16px;
+}
 
 
 

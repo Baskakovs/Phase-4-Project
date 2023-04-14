@@ -6,10 +6,14 @@ import MyBooksList from './Components/MyBooks';
 import MyReviews from './Components/MyReviews';
 import NewBook from './Components/NewBook';
 import './App.css';
+import Login from './Components/Login'
 export const AppContext = createContext()
+export const LoginContext = createContext()
 
 const App = () => {
 
+  //FETCHING DATA FROM BACK-END
+  //===========================
   const [data, setData] = useState("null")
   useEffect(() => {
     fetch('/books', 
@@ -24,9 +28,11 @@ const App = () => {
       }
     })
   }, [])
-  console.log(data)
 
-  const hi = 'hi'
+  //MANAGING LOGIN
+  //==============
+
+  const [currentUser, setCurrentUer] = useState("")
 
   return (
     <>
@@ -34,7 +40,7 @@ const App = () => {
     <Nav />
       <Switch>
         <Route exact path="/">
-          <AppContext.Provider value={{data, hi}}>
+          <AppContext.Provider value={{data}}>
             <BookListPage />
           </AppContext.Provider>
         </Route>
@@ -47,6 +53,12 @@ const App = () => {
         <Route path="/new_book">
           <NewBook />
         </Route>
+        <Route path="/login">
+          <LoginContext.Provider 
+          value={setCurrentUer}>
+            <Login/>
+          </LoginContext.Provider>
+          </Route>
       </Switch>
     </Router>
     </>

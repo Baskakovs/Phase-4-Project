@@ -3,11 +3,13 @@ import { AppContext } from "../App"
 import BookCard from "./BookCard"
 function BookListPage(){
     const {data} = useContext(AppContext)
-    console.log(data, "data")
 return (
     <>
     <div className="container-tabs">
-        <BookCard />
+        {!Array.isArray(data) ? null : data.map((book) => {
+            return <BookCard book={book} key={book.id}/>
+        })
+        }
     </div>
 
     </>
