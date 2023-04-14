@@ -14,16 +14,14 @@ function Book(){
             setBook(book)
         }
     }, [data])
-    console.log(data)
+        
     return(
         <>
-        {/* <div className="container-book text-center w-100">
-            <h1>{book.title}</h1>
-            <p>{book.description}</p>
-            <p><i>{book.author}</i></p>
-        </div> */}
         <div className="container-reviews">
-            <ReviewCard/>
+            {!Array.isArray(book.reviews) ? null :
+            book.reviews.map((review) =>
+            <ReviewCard review={review} key={review.id}/>)
+            }
         </div>
 
         </>
