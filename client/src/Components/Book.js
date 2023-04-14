@@ -22,6 +22,18 @@ function Book(){
             book.reviews.map((review) =>
             <ReviewCard review={review} key={review.id}/>)
             }
+            <div className='container one-col mt-7'>
+                <input type="text" 
+                placeholder="Title" 
+                className="no-border text-bold text-large"
+                autoFocus
+                />
+                <textarea 
+                type="text" 
+                placeholder="What did you think of this book?" 
+                className="new-review-input"/>
+                <button className="btn-purple mt-7">Add Review</button>
+            </div>
         </div>
 
         </>
