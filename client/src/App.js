@@ -32,17 +32,25 @@ const App = () => {
   //MANAGING LOGIN
   //==============
 
-  const [currentUser, setCurrentUer] = useState("")
+  const [currentUser, setCurrentUer] = useState(null)
+  function handleSetCurrentUser(user){
+    setCurrentUer(user)
+  }
+
+  useEffect(() => {
+    console.log("1")
+    console.log(currentUser)
+  }, [currentUser])
+
 
   return (
     <>
     <Router>
+    <AppContext.Provider value={{data, currentUser, handleSetCurrentUser}}>
     <Nav />
       <Switch>
         <Route exact path="/">
-          <AppContext.Provider value={{data}}>
-            <BookListPage />
-          </AppContext.Provider>
+          <BookListPage />
         </Route>
         <Route path="/my_books">
           <MyBooksList />
@@ -53,13 +61,14 @@ const App = () => {
         <Route path="/new_book">
           <NewBook />
         </Route>
-        <Route path="/login">
+        <Route exact path="/login">
           <LoginContext.Provider 
-          value={setCurrentUer}>
+          value={{handleSetCurrentUser}}>
             <Login/>
           </LoginContext.Provider>
-          </Route>
+        </Route>
       </Switch>
+    </AppContext.Provider>
     </Router>
     </>
   );

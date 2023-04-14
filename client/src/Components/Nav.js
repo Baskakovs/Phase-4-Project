@@ -1,7 +1,22 @@
 import {NavLink} from 'react-router-dom'
+import { useContext } from 'react'
+import { AppContext } from '../App'
 function Nav({handleLogout}){
+    const {currentUser, handleSetCurrentUser} = useContext(AppContext)
+
     return (
         <>
+        {!currentUser ? 
+        <ul className="ul-nav">
+            <NavLink to="/login">
+            <li className="nav-li">
+            <button className={"btn-purple"}>
+                Login
+            </button>
+            </li>
+            </NavLink>
+        </ul>
+        :
         <ul className="ul-nav">
             <li className="nav-li">
             <button className={"btn-purple"} onClick=
@@ -26,6 +41,7 @@ function Nav({handleLogout}){
             </li>
             </NavLink>
         </ul>
+        }
         </>
     )
 }

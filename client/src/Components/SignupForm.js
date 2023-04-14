@@ -4,8 +4,6 @@ import {LoginContext} from '../App'
 
 function SignupForm({setErrors}){
 
-    const {setCurrentUser} = useContext(LoginContext)
-
     //HANDLING FORM INPUTS
     //====================
     const [signUpForm, setSignUpForm] = useState({
@@ -27,6 +25,9 @@ function SignupForm({setErrors}){
 
     //SUBMITTING SIGNUP TO THE BACK-END
     //=================================
+
+    const { handleSetCurrentUser } = useContext(LoginContext)
+
     let validity = true
     function handleSubmit(e){
         e.preventDefault()
@@ -35,11 +36,15 @@ function SignupForm({setErrors}){
             fetch('/users',{
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(signUpForm)
+                body: JSON.stringify({
+                    email: signUpForm.email,
+                    name: signUpForm.name,
+                    password: signUpForm.password
+                })
             })
             .then(res => {
                 if(res.ok){
-                    res.json().then(user => setCurrentUser(user))
+                    res.json().then(user => handleSetCurrentUser(user))
                 }else{
                     res.json().then(e =>setErrors(e.errors))
                 }
@@ -51,14 +56,11 @@ function SignupForm({setErrors}){
     function validateInputs(){
         let errors = []
         //Validate password
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
-        if(!passwordRegex.test(signUpForm.password)){
-            errors.push("Password must contain at least 8 characters, 1 uppercase, 1 lowercase, 1 number, and 1 special character")
-            validity = false
-        }
         if(signUpForm.password !== signUpForm.confirmPassword){
             errors.push("Passwords do not match")
             validity = false
+        }else{
+            return true
         }
         setErrors(errors)
     }

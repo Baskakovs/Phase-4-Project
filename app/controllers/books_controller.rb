@@ -13,8 +13,8 @@ class BooksController < ApplicationController
     def create
         book = Book.create!(book_params)
         render json: book, status: :created
-        rescue ActiveRecord::RecordInvalid => invalid
-            render_unprocessable_entity_response(invalid.record)
+        rescue ActiveRecord::RecordInvalid => invalid 
+    render_unprocessable_entity_response(invalid)
     end
 
     private
@@ -23,8 +23,8 @@ class BooksController < ApplicationController
         params.require(:book).permit(:title, :author, :description) #NOTE NEED TO ADD USER_ID
     end
 
-    def render_unprocessable_entity_response
-        render json: { errors: @book.errors.full_messages }, status: :unprocessable_entity
+    def render_unprocessable_entity_response(invalid)
+        render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
     end
 
 end
