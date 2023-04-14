@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     # Other routes...
     resources :books
     resources :users, only: [:create]
+    resources :reviews, except: [:index, :show]
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy"
 end

@@ -22,7 +22,7 @@ function Book(){
         if(currentUser){
             const review = {
                 title: "",
-                content: "",
+                text: "",
                 user_id: currentUser.id,
                 book_id: book.id
             }
@@ -39,8 +39,24 @@ function Book(){
         })
     }
 
+    console.log(newReview)
 
-        
+    function handleSubmit(e){
+        e.preventDefault()
+        fetch('/reviews',{
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(newReview)
+        })
+        .then(res => {
+            if(res.ok){
+                res.json().then( e => {
+                    console.log(e)})
+            }
+        })
+    }
+            
+     
     return(
         <>
         <div className="container-reviews">
@@ -50,15 +66,20 @@ function Book(){
             }
             {
                 !currentUser ? null :
-                <form className='container one-col mt-7'>
+                <form className='container one-col mt-7' 
+                onSubmit={handleSubmit}>
                     <input type="text" 
+                    name="title"
                     placeholder="Title" 
                     className="no-border text-bold text-large"
+                    onChange={handleNewReview}
                     autoFocus
                     />
                     <textarea 
                     type="text" 
+                    name="text"
                     placeholder="What did you think of this book?" 
+                    onChange={handleNewReview}
                     className="new-review-input"/>
                     <button className="btn-purple mt-7">Add Review</button>
                 </form>
