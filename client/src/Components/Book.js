@@ -39,8 +39,7 @@ function Book(){
         })
     }
 
-    console.log(newReview)
-
+    const [errors, setErrors] = useState([])
     function handleSubmit(e){
         e.preventDefault()
         fetch('/reviews',{
@@ -51,7 +50,10 @@ function Book(){
         .then(res => {
             if(res.ok){
                 res.json().then( e => {
-                    console.log(e)})
+                    // handlePushNewReview(e)
+                })
+            }else{
+                res.json().then(e => console.log(e))
             }
         })
     }
