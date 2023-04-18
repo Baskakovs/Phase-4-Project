@@ -3,6 +3,7 @@ import {useState, useEffect, useContext} from 'react'
 import {AppContext} from '../App'
 
 import ReviewCard from './ReviewCard';
+import Errors from './Errors';
 function Book(){
     const params = useParams()
     const {data, currentUser} = useContext(AppContext)
@@ -34,9 +35,7 @@ function Book(){
     
     function handleNewReview(e){
         const {name, value} = e.target
-        setNewReview({
-            ...newReview, [name]: value
-        })
+        setNewReview({...newReview, [name]: value})
     }
 
     const [errors, setErrors] = useState([])
@@ -50,15 +49,16 @@ function Book(){
         .then(res => {
             if(res.ok){
                 res.json().then( e => {
-                    // handlePushNewReview(e)
+                    setBook({...book, reviews: [...book.reviews, e]})
+                    setNewReview({})
+                    setErrors([])
                 })
             }else{
-                res.json().then(e => console.log(e))
+                res.json().then(e => setErrors(e.errors))
             }
         })
     }
-            
-     
+
     return(
         <>
         <div className="container-reviews">
@@ -66,12 +66,14 @@ function Book(){
             book.reviews.map((review) =>
             <ReviewCard review={review} key={review.id}/>)
             }
+            <Errors errors={errors}/>
             {
                 !currentUser ? null :
                 <form className='container one-col mt-7' 
                 onSubmit={handleSubmit}>
                     <input type="text" 
                     name="title"
+                    value={newReview.title}
                     placeholder="Title" 
                     className="no-border text-bold text-large"
                     onChange={handleNewReview}
@@ -80,6 +82,7 @@ function Book(){
                     <textarea 
                     type="text" 
                     name="text"
+                    value={newReview.text}
                     placeholder="What did you think of this book?" 
                     onChange={handleNewReview}
                     className="new-review-input"/>

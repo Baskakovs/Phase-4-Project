@@ -39,8 +39,8 @@ const App = () => {
 
   function handleLogin(user){
     setCurrentUer(user)
-
   }
+  console.log(currentUser, "current user")
 
   //MANAGING LOGOUT
   //==============
@@ -60,7 +60,7 @@ const App = () => {
   //==================
   const [userBooks, setUserBooks] = useState([])
   useEffect(() => {
-    if(currentUser){
+    if(currentUser && Array.isArray(data)){
       let newUserBooks = []
       data.filter(book => {
         if(book.user_id == currentUser.id){
@@ -70,6 +70,7 @@ const App = () => {
       setUserBooks(newUserBooks)
     }
   }, [data, currentUser])
+
 
   return (
     <>
