@@ -11,7 +11,9 @@ return (
         {
             Array.isArray(userBooks) && userBooks.length > 0 ?
             userBooks.map((book) => {
-                return <BookCard book={book}/>
+                return <NavLink to={`/book_edit/${book.id}`} className={"link"}>
+                    <BookCard book={book}/>
+                    </NavLink>
             }
             )
             :

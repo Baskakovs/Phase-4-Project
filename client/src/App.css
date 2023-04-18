@@ -574,7 +574,10 @@ li button {
   text-align: start;
 }
 
-
-
+.link {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit color from parent */
+  /* Add any other styles you want to apply to the link */
+}
 
 
