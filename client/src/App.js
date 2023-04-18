@@ -40,7 +40,6 @@ const App = () => {
   function handleLogin(user){
     setCurrentUer(user)
   }
-  console.log(currentUser, "current user")
 
   //MANAGING LOGOUT
   //==============
@@ -52,7 +51,6 @@ const App = () => {
   //MANAGING NEW BOOKS
   //==================
   function handleNewBook(newBook){
-    console.log(newBook, "new book")
     setData([...data, newBook])
   }
 
@@ -71,13 +69,26 @@ const App = () => {
     }
   }, [data, currentUser])
 
+  function handleNewReveiwList(e){
+    setData(data.map(book => {
+      if(book.id == e.book.id){
+        console.log(e, "new review list")
+        return {...book, reviews: [...book.reviews, e]}
+      }else{
+        return book
+      }
+    }))
+  }
+
+  console.log(data, "data")
+
 
   return (
     <>
     <Router>
     <AppContext.Provider 
     value={{data, handleLogin, logoutCurrentUser, currentUser, 
-    handleNewBook, userBooks}}
+    handleNewBook, userBooks, handleNewReveiwList}}
     >
     <Nav />
       <Switch>

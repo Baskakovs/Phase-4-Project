@@ -4,7 +4,7 @@ function ReviewCard({review}){
         <div className="card-review">
             <div className="container-review">
                 <h4><b>{review.title}</b></h4>
-                {/* <p><i>{review.user.name}</i></p> */}
+                <p><i>{review.user.name}</i></p>
                 <p>{review.text}</p>
             </div>
         </div>

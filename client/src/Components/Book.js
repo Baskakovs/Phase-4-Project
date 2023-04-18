@@ -6,7 +6,7 @@ import ReviewCard from './ReviewCard';
 import Errors from './Errors';
 function Book(){
     const params = useParams()
-    const {data, currentUser} = useContext(AppContext)
+    const {data, currentUser, handleNewReveiwList} = useContext(AppContext)
     const [book, setBook] = useState("")
     useEffect(() => {
         if(Array.isArray(data)){
@@ -18,7 +18,12 @@ function Book(){
 
     //HANDLING NEW REVIEW
     //===================
-    const [newReview, setNewReview] = useState(null)
+    const [newReview, setNewReview] = useState({
+        title: "",
+        text: "",
+        user_id: "",
+        book_id: ""
+    })
     useEffect(() => {
         if(currentUser){
             const review = {
@@ -49,7 +54,7 @@ function Book(){
         .then(res => {
             if(res.ok){
                 res.json().then( e => {
-                    setBook({...book, reviews: [...book.reviews, e]})
+                    handleNewReveiwList(e)
                     setNewReview({})
                     setErrors([])
                 })
@@ -62,6 +67,10 @@ function Book(){
     return(
         <>
         <div className="container-reviews">
+            <div>
+                <h1 className="text-left">{book.title}</h1>
+                <h3 className="text-left"><i>{book.author}</i></h3>
+            </div>
             {!Array.isArray(book.reviews) ? null :
             book.reviews.map((review) =>
             <ReviewCard review={review} key={review.id}/>)
