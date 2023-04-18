@@ -45,15 +45,21 @@ const App = () => {
     setCurrentUer(null)
   }
 
+  //MANAGING NEW BOOKS
+  //==================
+  function handleNewBook(newBook){
+    console.log(newBook, "new book")
+    setData([...data, newBook])
+  }
 
   const history = useHistory()
-
 
   return (
     <>
     <Router>
     <AppContext.Provider 
-    value={{data, currentUser, handleLogin, logoutCurrentUser}}
+    value={{data, currentUser, handleLogin, logoutCurrentUser, currentUser, 
+    handleNewBook}}
     >
     <Nav />
       <Switch>

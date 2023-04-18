@@ -1,17 +1,28 @@
-import {useState} from 'react'
+import {useState, useContext, useEffect} from 'react'
+import {AppContext} from '../App'
+import { useHistory } from 'react-router-dom'
 function NewBook(){
+    const history = useHistory()
+    const {currentUser, handleNewBook} = useContext(AppContext)
     const [form, setForm] = useState({
         title: "",
+        description: "",
         author: "",
-        description: ""
     })
+    
     function handleChange(e){
         const {name, value} = e.target
         setForm({...form, [name]: value})
     }
 
+    useEffect(() => {
+        setForm({...form, user_id: currentUser.id})
+    }, [currentUser])
+
+
     function handleSubmit(e){
         e.preventDefault()
+        addUserId()
         fetch("/books", {
             method: "POST",
             headers: {
@@ -19,10 +30,23 @@ function NewBook(){
             },
             body: JSON.stringify(form)
         })
-        .then(r => r.json())
-        .then(data => {
-            console.log(data)
+        .then(r => {
+            console.log("0")
+            if(r.ok){
+                r.json().then(data => {
+                    handleNewBook(data)
+                    history.push("/")
+                })
+            }else{
+                console.log("Error")
+            }
         })
+    }
+
+    function addUserId(){
+        if(currentUser){
+            setForm({...form, user_id: currentUser.id})
+        }
     }
     
     return(
