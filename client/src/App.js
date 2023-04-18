@@ -12,6 +12,8 @@ export const AppContext = createContext()
 export const LoginContext = createContext()
 
 const App = () => {
+
+  const history = useHistory()
   
   //FETCHING DATA FROM BACK-END
   //===========================
@@ -37,12 +39,14 @@ const App = () => {
 
   function handleLogin(user){
     setCurrentUer(user)
+
   }
 
-  //MANAGIN LOGOUT
+  //MANAGING LOGOUT
   //==============
   function logoutCurrentUser(){
     setCurrentUer(null)
+    history.push("/")
   }
 
   //MANAGING NEW BOOKS
@@ -66,8 +70,6 @@ const App = () => {
       setUserBooks(newUserBooks)
     }
   }, [data, currentUser])
-
-  const history = useHistory()
 
   return (
     <>
