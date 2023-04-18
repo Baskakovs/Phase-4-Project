@@ -52,14 +52,29 @@ const App = () => {
     setData([...data, newBook])
   }
 
+  //SETTING USER BOOKS
+  //==================
+  const [userBooks, setUserBooks] = useState([])
+  useEffect(() => {
+    if(currentUser){
+      let newUserBooks = []
+      data.filter(book => {
+        if(book.user_id == currentUser.id){
+          newUserBooks.push(book)
+        }
+      })
+      setUserBooks(newUserBooks)
+    }
+  }, [data, currentUser])
+
   const history = useHistory()
 
   return (
     <>
     <Router>
     <AppContext.Provider 
-    value={{data, currentUser, handleLogin, logoutCurrentUser, currentUser, 
-    handleNewBook}}
+    value={{data, handleLogin, logoutCurrentUser, currentUser, 
+    handleNewBook, userBooks}}
     >
     <Nav />
       <Switch>

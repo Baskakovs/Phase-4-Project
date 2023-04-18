@@ -1,22 +1,27 @@
 import {useState, useContext, useEffect} from 'react'
 import {AppContext} from '../App'
 import { useHistory } from 'react-router-dom'
+import Login from './Login'
+import Errors from './Errors'
 function NewBook(){
     const history = useHistory()
     const {currentUser, handleNewBook} = useContext(AppContext)
+    const [errors, setErrors] = useState([])
     const [form, setForm] = useState({
         title: "",
         description: "",
         author: "",
     })
-    
+
     function handleChange(e){
         const {name, value} = e.target
         setForm({...form, [name]: value})
     }
 
     useEffect(() => {
-        setForm({...form, user_id: currentUser.id})
+        if(currentUser){
+            setForm({...form, user_id: currentUser.id})
+        }
     }, [currentUser])
 
 
@@ -38,7 +43,9 @@ function NewBook(){
                     history.push("/")
                 })
             }else{
-                console.log("Error")
+                r.json().then(errors => {
+                    setErrors(errors)
+                })
             }
         })
     }
@@ -50,6 +57,13 @@ function NewBook(){
     }
     
     return(
+        <>
+        {
+        !currentUser ? (
+            history.push("/login")
+        )
+        :
+        (
         <>
         <form className="form" onSubmit={handleSubmit}>
             <input 
@@ -80,6 +94,10 @@ function NewBook(){
             </div>
             <button className="btn-purple">Add</button>
         </form>
+        <Errors />
+        </>
+        )
+        }
         </>
     )
 }

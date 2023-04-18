@@ -9,6 +9,7 @@ import React, {useState, useEffect} from 'react'
 import SignupForm from './SignupForm'
 import LoginForm from './LoginForm'
 import duck from '../duck.webp'
+import Errors from './Errors'
 
 function Login(){
 
@@ -26,17 +27,7 @@ function Login(){
                     <button onClick={()=>setLogin(!login)} className="login-btn">{login ? "Signup" : 
                     "Login"}
                     </button>
-                    {
-                        Array.isArray(errors) && errors.length > 0 ?
-                        <div className='login-error-box'>
-                            <ul className='errors-list'>{Array.isArray(errors) ? errors.map((error)=>{
-                                return <li className='errors-list-item'>{error}</li>
-                                }): null}
-                            </ul> 
-                         </div>
-                         :
-                        null
-                    }
+                    <Errors errors={errors}/>
                 </div>
             </div>
             <div className="m-a">
