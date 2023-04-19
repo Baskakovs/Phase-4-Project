@@ -1,8 +1,9 @@
-import {NavLink} from 'react-router-dom'
+import {NavLink, useHistory} from 'react-router-dom'
 import { useContext } from 'react'
 import { AppContext } from '../App'
 function Nav({handleLogout}){
-    const {currentUser, logoutCurrentUser} = useContext(AppContext)
+    const history = useHistory()
+    const {currentUser, setCurrentUer} = useContext(AppContext)
 
     function handleLogout(e){
         e.preventDefault()
@@ -16,7 +17,23 @@ function Nav({handleLogout}){
                 alert("Something went wrong")
             }
         })
+
     }
+
+    function logoutCurrentUser(e){
+        fetch('/logout', {
+            method: "DELETE"
+        })
+        .then(res => {
+            if(res.status == 204){
+                setCurrentUer(null) 
+                history.push("/")
+            }else{
+                alert("Cannot logout. Something went wrong.")
+            }
+        })
+    }
+
     return (
         <>
             {!currentUser ? 

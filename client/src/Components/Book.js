@@ -1,10 +1,11 @@
-import {useParams} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 import {useState, useEffect, useContext} from 'react'
 import {AppContext} from '../App'
 
 import ReviewCard from './ReviewCard';
 import Errors from './Errors';
 function Book(){
+    const history = useHistory()
     const params = useParams()
     const {data, currentUser, handleNewReveiwList} = useContext(AppContext)
     const [book, setBook] = useState("")
@@ -66,6 +67,7 @@ function Book(){
 
     return(
         <>
+        <button onClick={()=>history.goBack()} className="btn-close"></button>
         <div className="container-reviews">
             <div>
                 <h1 className="text-left">{book.title}</h1>

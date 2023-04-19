@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-    skip_before_action :authorized, only: [:create]
+    skip_before_action :authorized, only: [:create, :destroy]
     def create
         user = User.find_by(email: params[:email])
         if user &.authenticate(params[:password]) #Bcrypt checks if the password provided matches the password stored in the database for the user.

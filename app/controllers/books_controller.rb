@@ -1,21 +1,33 @@
-class BooksController < ApplicationController
-
+class BooksController < ApplicationController   
+    skip_before_action :authorized, only: [:index]
+    def show
+        book = Book.find(params[:id])
+        render json: book, include:["reviews", "reviews.user"], status: :ok
+    end
     def index
         books = Book.all
         render json: books, each_serializer: BookSerializer, include:["reviews", "reviews.user"], status: :ok
     end
 
-
-    # def show
-    #     book = Book.find(params[:id])
-    #     render json: book, status: :ok
-    # end
+    def update
+        book = Book.find(params[:id])
+        book.update!(book_params)
+        render json: book, status: :ok
+        rescue ActiveRecord::RecordInvalid => invalid
+    render_unprocessable_entity_response(invalid)
+    end
 
     def create
         book = Book.create!(book_params)
         render json: book, status: :created
         rescue ActiveRecord::RecordInvalid => invalid 
     render_unprocessable_entity_response(invalid)
+    end
+
+    def destroy
+        book = Book.find(params[:id])
+        book.destroy
+        head :no_content
     end
 
     private

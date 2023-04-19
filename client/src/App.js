@@ -1,5 +1,6 @@
 import React, {useState, useEffect, createContext} from 'react';
-import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import BookListPage from './Components/BookListPage';
 import Nav from './Components/Nav';
 import MyBooksList from './Components/MyBooks';
@@ -8,12 +9,15 @@ import NewBook from './Components/NewBook';
 import './App.css';
 import Login from './Components/Login'
 import Book from './Components/Book'
+import BookEdit from './Components/BookEdit'
+import Errors from './Components/Errors';
 export const AppContext = createContext()
 export const LoginContext = createContext()
 
 const App = () => {
 
   const history = useHistory()
+  const [errors, setErrors] = useState([])
   
   //FETCHING DATA FROM BACK-END
   //===========================
@@ -27,7 +31,7 @@ const App = () => {
       if (r.ok) {
         r.json().then((data) => {setData(data)})
       }else{
-        console.log("Error")
+        r.json().then((errors) => {setErrors(errors)})
       }
     })
   }, [])
@@ -39,13 +43,6 @@ const App = () => {
 
   function handleLogin(user){
     setCurrentUer(user)
-  }
-
-  //MANAGING LOGOUT
-  //==============
-  function logoutCurrentUser(){
-    setCurrentUer(null)
-    history.push("/")
   }
 
   //MANAGING NEW BOOKS
@@ -72,7 +69,6 @@ const App = () => {
   function handleNewReveiwList(e){
     setData(data.map(book => {
       if(book.id == e.book.id){
-        console.log(e, "new review list")
         return {...book, reviews: [...book.reviews, e]}
       }else{
         return book
@@ -80,15 +76,35 @@ const App = () => {
     }))
   }
 
-  console.log(data, "data")
+function handleEditBook(book){
+  let newBookList = data.map((b)=>{
+    if(b.id === book.id){
+      return book
+    }else{
+      return b
+    }
+  })
+  setData(newBookList)
+}
 
+function handleDeleteBook(book){
+  let newBookList = data.filter((b)=>{
+    if(b.id == book.id){
+      return null
+    }else{
+      return book
+    }
+  })
+  setData(newBookList)
+}
 
   return (
     <>
     <Router>
     <AppContext.Provider 
-    value={{data, handleLogin, logoutCurrentUser, currentUser, 
-    handleNewBook, userBooks, handleNewReveiwList}}
+    value={{data, handleLogin, currentUser, setCurrentUer,
+    handleNewBook, userBooks, handleNewReveiwList, handleEditBook, 
+    handleDeleteBook}}
     >
     <Nav />
       <Switch>
@@ -112,6 +128,9 @@ const App = () => {
         </Route>
         <Route path="/books/:id">
           <Book/>
+        </Route>
+        <Route path="/book_edit/:id">
+          <BookEdit/>
         </Route>
       </Switch>
     </AppContext.Provider>
