@@ -16,7 +16,7 @@ Review.destroy_all
   user = User.create!(
     name: Faker::Name.name,
     email: Faker::Internet.email,
-    password: Faker::Internet.password
+    password: "RandomPassword57$$"
   )
   # Create books for each user
   5.times do

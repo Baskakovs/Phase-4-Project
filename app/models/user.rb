@@ -12,8 +12,8 @@ class User < ApplicationRecord
     (?=.*[[:^alnum:]])  # Must contain a symbol
   /x
 
-    VALIDATIONS
-    ===========
+    #VALIDATIONS
+    #===========
     validates :name, presence: true
     validates :email, presence: true, uniqueness: true, format: { with: 
     URI::MailTo::EMAIL_REGEXP }
