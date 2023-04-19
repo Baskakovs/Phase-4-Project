@@ -30,6 +30,16 @@ You can create a user, boom and review
 *Done*
 - [ ] Have at least three different client-side routes using React Router. Be sure to include a nav bar or other UI element that allows users to navigate between routes. Follow RESTful convention where applicable.
 *Nav bar included that allows users to navigate between 7 different routes.*
+- [ ] Implement authentication/authorization, including password protection. A user must be able to:
+    - [ ] sign up with a new user account,
+    *Done*
+    - [ ] log in to the site with a secure password and stay logged in via user ID in the session hash, and
+    *The user stays logged in whilst navigating through the app, however, when the page is relaoded the user is logged out.*
+    - [ ] log out of the site.
+    *Logout possible*
+- [ ] Use the React hook useContext to persist your logged in user object in front end state and avoid props drilling.
+*Done.*
+
 
 Setting-up
 ----------
