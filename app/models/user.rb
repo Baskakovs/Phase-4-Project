@@ -12,12 +12,12 @@ class User < ApplicationRecord
     (?=.*[[:^alnum:]])  # Must contain a symbol
   /x
 
-    #VALIDATIONS
-    #===========
-    # validates :name, presence: true
-    # validates :email, presence: true, uniqueness: true, format: { with: 
-    # URI::MailTo::EMAIL_REGEXP }
-    # validates :password, presence: true, format: { with: PASSWORD_REQUIREMENTS, 
-    # message: "must contain at least 8 characters, 1 number, 1 uppercase, 1 
-    # speacial character" }
+    VALIDATIONS
+    ===========
+    validates :name, presence: true
+    validates :email, presence: true, uniqueness: true, format: { with: 
+    URI::MailTo::EMAIL_REGEXP }
+    validates :password, presence: true, format: { with: PASSWORD_REQUIREMENTS, 
+    message: "must contain at least 8 characters, 1 number, 1 uppercase, 1 
+    speacial character" }
 end

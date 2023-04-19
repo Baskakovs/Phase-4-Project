@@ -1,6 +1,5 @@
 import React, {useState, useEffect, createContext} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
 import BookListPage from './Components/BookListPage';
 import Nav from './Components/Nav';
 import MyBooksList from './Components/MyBooks';
@@ -16,7 +15,6 @@ export const LoginContext = createContext()
 
 const App = () => {
 
-  const history = useHistory()
   const [errors, setErrors] = useState([])
   
   //FETCHING DATA FROM BACK-END
@@ -135,6 +133,9 @@ function handleDeleteBook(book){
       </Switch>
     </AppContext.Provider>
     </Router>
+    {
+      errors.length > 0 ? <Errors errors={errors}/> : null
+    }
     </>
   );
 };
