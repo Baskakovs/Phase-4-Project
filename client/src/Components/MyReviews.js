@@ -8,7 +8,7 @@ const {data, currentUser} = useContext(AppContext)
 const [myReviews, setMyReviews] = useState([])
 
 useEffect(() => {
-    if(Array.isArray(data)){
+    if(currentUser && Array.isArray(data)){
         let reviews = []
         data.filter(book => {
             book.reviews.filter(review => {
@@ -24,11 +24,11 @@ useEffect(() => {
 return (
     <>
     <div className="container-reviews">
-        <h1>My Reviews</h1>
+        {currentUser ? <h1>My Reviews</h1> : <h1>Please login!</h1>}
     {
     Array.isArray(myReviews) &&
-    myReviews.map(review => {
-        return <MyReviewCard review={review}/>
+    myReviews.map((review, index) => {
+        return <MyReviewCard key={index} review={review}/>
     })
     }
     </div>

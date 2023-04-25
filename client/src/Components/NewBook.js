@@ -36,7 +36,6 @@ function NewBook(){
             body: JSON.stringify(form)
         })
         .then(r => {
-            console.log("0")
             if(r.ok){
                 r.json().then(data => {
                     handleNewBook(data)
