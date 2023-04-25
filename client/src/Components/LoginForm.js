@@ -38,6 +38,7 @@ function LoginForm({setErrors}){
         .then(res => {
             if(res.ok){
                 res.json().then(user => {
+                    console.log(user, "user json")// Now we need to set the user and create a function that sets user books to the data rendered.
                     handleLogin(user)
                     history.push("/")
                 })

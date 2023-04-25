@@ -12,7 +12,7 @@ class BooksController < ApplicationController
     def update
         book = Book.find(params[:id])
         book.update!(book_params)
-        render json: book, status: :ok
+        render json: book, serializer: BookSerializer, include:["reviews", "reviews.user"], status: :ok
         rescue ActiveRecord::RecordInvalid => invalid
     render_unprocessable_entity_response(invalid)
     end

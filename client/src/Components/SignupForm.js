@@ -48,6 +48,7 @@ function SignupForm({setErrors}){
                 if(res.ok){
                     res.json().then(user => {
                         handleLogin(user)
+                        console.log(user)
                         history.push("/")
                     })
                 }else{

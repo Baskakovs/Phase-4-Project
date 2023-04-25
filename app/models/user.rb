@@ -1,6 +1,7 @@
 class User < ApplicationRecord
     has_many :reviews
-    has_many :books, through: :reviews
+    has_many :books
+    has_many :reviewed_books, through: :reviews, source: :book
 
     has_secure_password
     

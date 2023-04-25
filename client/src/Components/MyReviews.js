@@ -12,8 +12,6 @@ useEffect(() => {
         let reviews = []
         data.filter(book => {
             book.reviews.filter(review => {
-                console.log(review.user.id, "user id")
-                console.log(currentUser.id, "current user id")
                 if(review.user.id == currentUser.id){
                     return reviews.push(review)
                 }
@@ -34,7 +32,6 @@ return (
     })
     }
     </div>
-
     </>
 )
 }

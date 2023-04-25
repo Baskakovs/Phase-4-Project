@@ -38,20 +38,33 @@ const App = () => {
   //==============
 
   const [currentUser, setCurrentUer] = useState()
-
+  const [userBooks, setUserBooks] = useState([])
   function handleLogin(user){
     setCurrentUer(user)
+    setUserBooks(user.books)
   }
 
   //MANAGING NEW BOOKS
   //==================
   function handleNewBook(newBook){
     setData([...data, newBook])
+    setUserBooks([...userBooks, newBook])
   }
 
-  //SETTING USER BOOKS
-  //==================
-  const [userBooks, setUserBooks] = useState([])
+  //SETTING USER BOOKS AFTER DELETE
+  //===============================
+
+  function handleDeleteBook(book){
+    let newBookList = data.filter((b)=>{
+      if(b.id == book.id){
+        return null
+      }else{
+        return book
+      }
+    })
+    setData(newBookList)
+  }
+  //Updating userBooks after delete
   useEffect(() => {
     if(currentUser && Array.isArray(data)){
       let newUserBooks = []
@@ -64,6 +77,22 @@ const App = () => {
     }
   }, [data, currentUser])
 
+  //MANAGING EDIT BOOKS
+  //===================
+  function handleEditBook(book){
+    let newBookList = data.map((b)=>{
+      if(b.id === book.id){
+        return book
+      }else{
+        return b
+      }
+    })
+    setData(newBookList)
+  }
+
+  //MANAGING NEW REVIEWS
+  //====================  
+
   function handleNewReveiwList(e){
     setData(data.map(book => {
       if(book.id == e.book.id){
@@ -73,28 +102,6 @@ const App = () => {
       }
     }))
   }
-
-function handleEditBook(book){
-  let newBookList = data.map((b)=>{
-    if(b.id === book.id){
-      return book
-    }else{
-      return b
-    }
-  })
-  setData(newBookList)
-}
-
-function handleDeleteBook(book){
-  let newBookList = data.filter((b)=>{
-    if(b.id == book.id){
-      return null
-    }else{
-      return book
-    }
-  })
-  setData(newBookList)
-}
 
   return (
     <>
