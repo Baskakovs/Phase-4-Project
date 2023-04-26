@@ -121,7 +121,7 @@ function handleDelete(e) {
           </form>
           <button className="btn-underline" onClick=
           {handleDelete}>Delete</button>
-          <Errors errors={errors}/>
+          <Errors errors={errors.errors}/>
         </div>
       )}
     </>

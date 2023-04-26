@@ -6,7 +6,7 @@ import Errors from "./Errors"
 function ReviewEdit(){
     const history = useHistory()
     const { currentUser, data, handleEditReview, handleDeleteReview} = useContext(AppContext)
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState("")
     const params = useParams()
 
     const [form, setForm] = useState({
@@ -14,6 +14,8 @@ function ReviewEdit(){
         text: "",
         id: "",
     })
+
+    console.log(errors)
 
     useEffect(() => {
         if(currentUser && Array.isArray(data)){
@@ -101,7 +103,7 @@ function ReviewEdit(){
                         <button className="btn-purple">Update</button>   
                     </form>
                     <button className="btn-split" onClick={handleDelete}>Delete</button>
-                    <Errors errors={errors}/>
+                    <Errors errors={errors.errors}/>
                 </div>
             )
         }
