@@ -10,6 +10,7 @@ import Login from './Components/Login'
 import Book from './Components/Book'
 import BookEdit from './Components/BookEdit'
 import Errors from './Components/Errors';
+import ReviewEdit from './Components/ReviewEdit';
 export const AppContext = createContext()
 export const LoginContext = createContext()
 
@@ -103,13 +104,54 @@ const App = () => {
     }))
   }
 
+  //MANAGING EDIT REVIEWS
+  //=====================
+  function handleEditReview(review){
+    if(data){
+      setData(data.map(book => {
+        if(book.id == review.book_id){
+          return {...book, reviews: book.reviews.map(r => {
+            if(r.id == review.id){
+              return review
+            }else{
+              return r
+            }
+          })}
+        }else{
+          return book
+        }
+      }))
+    }
+  }
+
+  function handleDeleteReview(review){
+    console.log(review, "review")
+    if(data){
+      setData(data.map(book => {
+        if(book.id == review.book_id){
+          console.log("1")
+          return {...book, reviews: book.reviews.filter(r => { 
+            if(r.id == review.id){
+              console.log("2")
+              return null
+            }else{
+              return r
+            }
+          })}
+        }else{
+          return book
+        }
+      }))
+    }
+  }
+
   return (
     <>
     <Router>
     <AppContext.Provider 
     value={{data, handleLogin, currentUser, setCurrentUer,
     handleNewBook, userBooks, handleNewReveiwList, handleEditBook, 
-    handleDeleteBook}}
+    handleDeleteBook, handleEditReview, handleDeleteReview}}
     >
     <Nav />
       <Switch>
@@ -136,6 +178,9 @@ const App = () => {
         </Route>
         <Route path="/book_edit/:id">
           <BookEdit/>
+        </Route>
+        <Route path="/edit_review/:id">
+          <ReviewEdit/>
         </Route>
       </Switch>
     </AppContext.Provider>
